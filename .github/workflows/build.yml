@@ -151,7 +151,7 @@ jobs:
         scripts/build-macos-amd64.sh -d
 
     - name: 'Upload Artifact'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: macos-dedicated-amd64
         path: bin
