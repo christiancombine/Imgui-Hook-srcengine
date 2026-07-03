@@ -1,0 +1,48 @@
+#! /usr/bin/env python
+# encoding: utf-8
+
+from waflib import Utils
+import os
+
+top = '.'
+PROJECT_NAME = 'imgui'
+
+def options(opt):
+	return
+
+def configure(conf):
+	conf.define('_WINDOWS',1)
+
+def build(bld):
+	source = [
+		'imgui.cpp',
+		'imgui_demo.cpp',
+		'imgui_draw.cpp',
+		'imgui_tables.cpp',
+		'imgui_widgets.cpp'
+	]
+
+	includes = [
+		'.'
+	]
+
+	defines = []
+
+	libs = []
+
+	if bld.env.DEST_OS == 'android':
+		libs += ['ANDROID_SUPPORT']
+
+	install_path = bld.env.LIBDIR
+
+	bld.stlib(
+		source = source,
+		target = PROJECT_NAME,
+		name = PROJECT_NAME,
+		features = 'c cxx',
+		includes = includes,
+		defines = defines,
+		use = libs,
+		install_path = install_path,
+		idx = bld.get_taskgen_count()
+	)
